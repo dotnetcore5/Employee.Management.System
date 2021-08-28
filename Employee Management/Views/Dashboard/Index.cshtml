@@ -1,0 +1,75 @@
+﻿@model dashboardClass
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row pt-md-5 mt-md-3 mb-5">
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card card-common">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    @*<i class="fas fa-shopping-cart fa-3x text-warning"></i>*@
+                    <i class="fas fa-building fa-3x text-warning"></i>
+                    <div class="text-right text-secondary">
+                        <h5>Total Department</h5>
+                        <h3>@Model.DepartmentList.Count()</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-secondary">
+                <a asp-controller="Department" asp-action="Index" class="btn btn-primary" style="width:auto">Department List</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card card-common">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    @*<i class="fas fa-shopping-cart fa-3x text-warning"></i>*@
+                    <i class="fas fa-users fa-3x text-warning"></i>
+                    <div class="text-right text-secondary">
+                        <h5>Total Employee</h5>
+                        <h3>@Model.EmployeeList.Count()</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-secondary">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary" style="width:auto">Employee List</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card card-common">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    @*<i class="fas fa-shopping-cart fa-3x text-warning"></i>*@
+                    <i class="far fa-crosshairs fa-3x text-warning"></i>
+                    <div class="text-right text-secondary">
+                        <h5>Total Position</h5>
+                        <h3>@Model.PositionList.Count()</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-secondary">
+                <a asp-controller="Position" asp-action="Index" class="btn btn-primary" style="width:auto">Position List</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card card-common">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    @*<i class="fas fa-shopping-cart fa-3x text-warning"></i>*@
+                    <i class="far fa-clock fa-3x text-warning"></i>
+                    <div class="text-right text-secondary">
+                        <h5>Total Schedule</h5>
+                        <h3>@Model.ScheduleList.Count()</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-secondary">
+                <a asp-controller="Schedule" asp-action="Index" class="btn btn-primary" style="width:auto">Schedule List</a>
+            </div>
+        </div>
+    </div>
+</div>

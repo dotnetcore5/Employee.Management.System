@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Position>
+
+@{
+    ViewBag.Title = "Position List";
+}
+<h1 class="text-center">Position List</h1>
+<hr />
+
+<div id="PlaceHolderHere"></div>
+
+@*<a asp-controller="Position" asp-action="Create" class="btn btn-primary m-1">Create New</a>*@
+<button type="button" class="btn btn-primary m-1" style="width:auto" data-toggle="ajax-modal" data-target="#addModal"
+        data-url="@Url.Action("Create")">
+    Create New
+</button>
+
+<table class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th>Position Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var position in Model)
+        {
+            <tr>
+                <td>@position.PositionName</td>
+                <td>
+                    <form asp-action="Delete" asp-controller="Position" asp-route-id="@position.PositionID" method="post">
+
+                        <button type="button" class="btn btn-primary m-1" style="width:auto" data-toggle="ajax-modal" data-target="#addModal"
+                                data-url="@Url.Action($"Edit/{position.PositionID}")">
+                            Edit
+                        </button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete Position : @position.PositionName')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="~/js/customScript.js"></script>
+}
+

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Employee>
+
+@{
+    ViewBag.Title = "Employee List";
+}
+<h1 class="text-center">Employee List</h1>
+<hr />
+
+<a asp-controller="Home" asp-action="Create" style="width:auto" class="btn btn-primary m-1">Create Employee</a>
+
+<table class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            @*<th>Department</th>*@
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var employee in Model)
+        {
+            <tr>
+                <td>@employee.ID</td>
+                <td>@employee.Name</td>
+                <td>@employee.Email</td>
+                @*<td>@employee.Department</td>*@
+                <td>
+                    <div>
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@employee.ID" class="btn btn-primary m-1">View</a>
+                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.ID" class="btn btn-primary m-1">Edit</a>
+                    </div>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/customScript.js"></script>
+}

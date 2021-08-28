@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Employee_Management</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201111073302_Test.cs" />
+    <Compile Remove="Migrations\20201111073302_Test.Designer.cs" />
+    <Compile Remove="Migrations\20201125064046_PositionTable.cs" />
+    <Compile Remove="Migrations\20201125064046_PositionTable.Designer.cs" />
+    <Compile Remove="Migrations\20201125064319_PositionTable.cs" />
+    <Compile Remove="Migrations\20201125064319_PositionTable.Designer.cs" />
+    <Compile Remove="Migrations\20201125071547_addPositionEmployee.cs" />
+    <Compile Remove="Migrations\20201125071547_addPositionEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201130064632_addScheduleTable.cs" />
+    <Compile Remove="Migrations\20201130064632_addScheduleTable.Designer.cs" />
+    <Compile Remove="Migrations\20201130065100_addScheduleTable.cs" />
+    <Compile Remove="Migrations\20201130065100_addScheduleTable.Designer.cs" />
+    <Compile Remove="Migrations\20201130070223_addScheduleTable.cs" />
+    <Compile Remove="Migrations\20201130070223_addScheduleTable.Designer.cs" />
+    <Compile Remove="Migrations\20201130204537_alterEmployee.cs" />
+    <Compile Remove="Migrations\20201130204537_alterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201130205332_alterEmployeeTable.cs" />
+    <Compile Remove="Migrations\20201130205332_alterEmployeeTable.Designer.cs" />
+    <Compile Remove="Migrations\20201130205536_alterScheduleTable.cs" />
+    <Compile Remove="Migrations\20201130205536_alterScheduleTable.Designer.cs" />
+    <Compile Remove="Migrations\20201130205738_alterSchedule.cs" />
+    <Compile Remove="Migrations\20201130205738_alterSchedule.Designer.cs" />
+    <Compile Remove="Migrations\20201130210419_departmentTable.cs" />
+    <Compile Remove="Migrations\20201130210419_departmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20201201055513_alterContext.cs" />
+    <Compile Remove="Migrations\20201201055513_alterContext.Designer.cs" />
+    <Compile Remove="Migrations\20201201105950_secondaddColumn.cs" />
+    <Compile Remove="Migrations\20201201105950_secondaddColumn.Designer.cs" />
+    <Compile Remove="Migrations\20201201110532_SecondAlterEmployee.cs" />
+    <Compile Remove="Migrations\20201201110532_SecondAlterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201110841_SecondAlterEmployee.cs" />
+    <Compile Remove="Migrations\20201201110841_SecondAlterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201113921_SecondAlterEmployee.cs" />
+    <Compile Remove="Migrations\20201201113921_SecondAlterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201114359_DeleteColumn.cs" />
+    <Compile Remove="Migrations\20201201114359_DeleteColumn.Designer.cs" />
+    <Compile Remove="Migrations\20201201115038_ThirdAlterEmployee.cs" />
+    <Compile Remove="Migrations\20201201115038_ThirdAlterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201122311_ThirdAlterEmployee.cs" />
+    <Compile Remove="Migrations\20201201122311_ThirdAlterEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201123559_thirdAddColumnEmployee.cs" />
+    <Compile Remove="Migrations\20201201123559_thirdAddColumnEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201182305_againAddColumnEmployee.cs" />
+    <Compile Remove="Migrations\20201201182305_againAddColumnEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201182741_AddColumnAgainEmployee.cs" />
+    <Compile Remove="Migrations\20201201182741_AddColumnAgainEmployee.Designer.cs" />
+    <Compile Remove="Migrations\20201201183907_AddColumnEmployee.cs" />
+    <Compile Remove="Migrations\20201201183907_AddColumnEmployee.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+</Project>

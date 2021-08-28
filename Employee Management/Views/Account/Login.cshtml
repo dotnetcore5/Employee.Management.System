@@ -1,0 +1,67 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login Employee";
+}
+
+
+<div class="row">
+    <div class="col-md-10">
+        <h2 class="text-center">Login Page</h2>
+        <hr />
+        <form method="post" asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label" asp-for="RememberMe">
+                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    @*<div class="col-md-6">
+        <h1>External Login</h1>
+        <hr />
+        @{ 
+            if(Model.ExternalLogins.Count == 0)
+            {
+                <div>No External Login Configured</div>
+            }
+            else
+            {
+                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                    <div>
+                        @foreach(var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
+                                    title="Login using your @provider.DisplayName account">
+                                @provider.DisplayName
+                            </button>
+                        }
+                    </div>
+                </form>
+            }
+        }
+    </div>*@
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

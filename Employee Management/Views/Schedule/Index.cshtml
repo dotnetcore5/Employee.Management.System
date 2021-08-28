@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Schedule>
+
+@{
+    ViewData["Title"] = "Schedule List";
+}
+
+<h1 class="text-center">Schedule List</h1>
+<hr />
+
+<div id="PlaceHolderHere"></div>
+
+<button type="button" class="btn btn-primary m-1" style="width:auto" data-toggle="ajax-modal" data-target="#addModal"
+        data-url="@Url.Action("Create")">
+    Create New
+</button>
+
+<table class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th>Time In</th>
+            <th>Time Out</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr>
+                <td>@schedule.TimeIn</td>
+                <td>@schedule.TimeOut</td>
+                <td>
+                    <form asp-action="Delete" asp-controller="Schedule" asp-route-id="@schedule.ScheduleId" method="post">
+
+                        <button type="button" class="btn btn-primary m-1" style="width:auto" data-toggle="ajax-modal" data-target="#addModal"
+                                data-url="@Url.Action($"Edit/{schedule.ScheduleId}")">
+                            Edit
+                        </button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete this Schedule')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="~/js/customScript.js"></script>
+}
+

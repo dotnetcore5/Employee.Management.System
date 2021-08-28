@@ -1,0 +1,59 @@
+﻿@model IEnumerable<IdentityRole>
+
+@using Microsoft.AspNetCore.Authorization
+
+@inject IAuthorizationService authorizationService
+
+@{
+    ViewData["Title"] = "ListRoles";
+}
+
+<h1>List Roles</h1>
+
+<a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole">Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <form asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@item.Id" method="post">
+                            @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
+                            {
+                                <a class="btn btn-primary" asp-action="EditRole" asp-controller="Administration" asp-route-id="@item.Id">Edit</a>
+
+                            }
+
+                            <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete user : @item.Name')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    <h2>No Roles Created yet</h2>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
