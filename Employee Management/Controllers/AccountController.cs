@@ -107,7 +107,7 @@ namespace Employee_Management.Controllers
 
         [AcceptVerbs("Get","Post")]
         [AllowAnonymous]
-        public async Task<IActionResult> isEmailInUse(string email)
+        public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user =  await userManager.FindByEmailAsync(email);
             if(user == null)
@@ -132,7 +132,7 @@ namespace Employee_Management.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null,string remoteError = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
             LoginViewModel loginViewModel = new LoginViewModel
             {
                 ReturnUrl = returnUrl,

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Employee_Management.Models;
 using Employee_Management.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,13 +11,13 @@ namespace Employee_Management.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository _employeeRepository;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IPositionRepository positionRepository;
         private readonly IScheduleRepository scheduleRepository;
         private readonly IDepartmentRepository departmentRepository;
 
-        public HomeController(IEmployeeRepository employeeRepository,IHostingEnvironment hostingEnvironment,
+        public HomeController(IEmployeeRepository employeeRepository, IWebHostEnvironment hostingEnvironment,
                                 IPositionRepository positionRepository, IScheduleRepository scheduleRepository,
                                 IDepartmentRepository departmentRepository)
         {
@@ -31,19 +28,27 @@ namespace Employee_Management.Controllers
             this.departmentRepository = departmentRepository;
         }
 
-     
+
         public ViewResult Index()
         {
-            
-
             var model = _employeeRepository.GetAllEmployee();
             return View(model);
         }
 
-        
+        public IActionResult Delete(int id)
+        {
+
+            Employee model = _employeeRepository.Delete(id);
+            if (model == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id);
+            }
+            return RedirectToAction("Index");
+        }
         public ViewResult Details(int? id)
         {
-            
+
             Employee model = _employeeRepository.GetEmployee(id.Value);
             if (model == null)
             {
@@ -55,15 +60,16 @@ namespace Employee_Management.Controllers
         [HttpGet]
         public ViewResult Create()
         {
-            EmployeeCreateViewModel model = new EmployeeCreateViewModel();
-
-            model.PositionList = positionRepository.GetAllPosition();
-            model.ScheduleList = scheduleRepository.GetAllSchedule().Select(a => new SelectListItem()
+            EmployeeCreateViewModel model = new EmployeeCreateViewModel
             {
-                Value = a.ScheduleId.ToString(),
-                Text = a.TimeIn + '-' + a.TimeOut
-            }).ToList();
-            model.DepartmentList = departmentRepository.GetAllDepartment();
+                PositionList = positionRepository.GetAllPosition(),
+                ScheduleList = scheduleRepository.GetAllSchedule().Select(a => new SelectListItem()
+                {
+                    Value = a.ScheduleId.ToString(),
+                    Text = a.TimeIn + '-' + a.TimeOut
+                }).ToList(),
+                DepartmentList = departmentRepository.GetAllDepartment()
+            };
 
             return View(model);
         }
@@ -73,7 +79,7 @@ namespace Employee_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uniqueFileName = processFile(model);
+                string uniqueFileName = ProcessFile(model);
                 Department department = departmentRepository.GetDepartment(model.DepartmentID);
                 Position position = positionRepository.GetPosition(model.PositionID);
                 Schedule schedule = scheduleRepository.GetSchedule(model.ScheduleID);
@@ -96,24 +102,6 @@ namespace Employee_Management.Controllers
             return View();
         }
 
-        private string processFile(EmployeeCreateViewModel model)
-        {
-            string uniqueFileName = null;
-            if (model.Photo != null)
-            {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using(var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.Photo.CopyTo(fileStream);
-                }
-                    
-            }
-
-            return uniqueFileName;
-        }
-
         [HttpGet]
         public ViewResult Edit(int id)
         {
@@ -123,7 +111,16 @@ namespace Employee_Management.Controllers
                 ID = employee.ID,
                 Name = employee.Name,
                 Email = employee.Email,
-                //Department = employee.Department,
+                DepartmentID = employee.Department.DpartmentID,
+                DepartmentList = departmentRepository.GetAllDepartment(),
+                PositionID = employee.Position.PositionID,
+                PositionList = positionRepository.GetAllPosition(),
+                ScheduleID=employee.Schedule.ScheduleId,
+                ScheduleList = scheduleRepository.GetAllSchedule().Select(a => new SelectListItem()
+                {
+                    Value = a.ScheduleId.ToString(),
+                    Text = a.TimeIn + '-' + a.TimeOut
+                }).ToList(),
                 ExistingPhotoPath = employee.PhotoPath
             };
 
@@ -138,16 +135,18 @@ namespace Employee_Management.Controllers
                 Employee employee = _employeeRepository.GetEmployee(model.ID);
                 employee.Name = model.Name;
                 employee.Email = model.Email;
-                //employee.Department = model.Department;
-                if(model.Photo != null)
+                employee.Department = departmentRepository.GetDepartment(model.DepartmentID);
+                employee.Position = positionRepository.GetPosition(model.PositionID);
+                employee.Schedule = scheduleRepository.GetSchedule(model.ScheduleID);
+                if (model.Photo != null)
                 {
-                    if(model.ExistingPhotoPath != null)
+                    if (model.ExistingPhotoPath != null)
                     {
                         string filePath = Path.Combine(hostingEnvironment.WebRootPath, "images", model.ExistingPhotoPath);
                         System.IO.File.Delete(filePath);
                     }
 
-                    employee.PhotoPath = processFile(model);
+                    employee.PhotoPath = ProcessFile(model);
                 }
 
                 _employeeRepository.Update(employee);
@@ -155,6 +154,19 @@ namespace Employee_Management.Controllers
             }
             return View();
         }
+        private string ProcessFile(EmployeeCreateViewModel model)
+        {
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                model.Photo.CopyTo(fileStream);
+            }
 
+            return uniqueFileName;
+        }
     }
 }

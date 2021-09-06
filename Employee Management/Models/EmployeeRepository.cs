@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,12 +24,12 @@ namespace Employee_Management.Models
         
         public IEnumerable<Employee> GetAllEmployee()
         {
-            return context.Employees;
+            return context.Employees.Include(e => e.Department).Include(e => e.Position).Include(e => e.Schedule);
         }
 
         public Employee GetEmployee(int id)
         {
-            return context.Employees.Find(id);
+            return context.Employees.Include(e=>e.Department).Include(e=>e.Position).Include(e=>e.Schedule).FirstOrDefault(e=>e.ID== id);
         }
 
         public Employee Update(Employee employeeChange)

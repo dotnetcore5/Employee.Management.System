@@ -32,11 +32,11 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     </environment>
 
-    @*<link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.js"></script>*@
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
     <link href="~/css/site.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
 </head>
@@ -48,58 +48,57 @@
             </button>
             <div class="collapse navbar-collapse" id="collapseNavbar">
                 <ul class="navbar-nav">
-                    @*<li class="nav-item">
-                        <a asp-action="Index" asp-controller="Home" class="nav-link">List</a>
+                      @if (signInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+                    {
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Dashboard" class="nav-link">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="Create" asp-controller="Home" class="nav-link">Create</a>
-                    </li>*@
-                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item mr-2">
-                            <a asp-action="Index" asp-controller="Dashboard" class="nav-link">Dashboard</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                @*<a class="dropdown-item" asp-action="ListUsers" asp-controller="Administration">Users</a>
-                                <a class="dropdown-item" asp-action="ListRoles" asp-controller="Administration">Roles</a>*@
-                                <a asp-action="Index" asp-controller="Home" class="dropdown-item">Employee</a>
-                                <a asp-action="Index" asp-controller="Department" class="dropdown-item">Department</a>
-                                <a asp-action="Index" asp-controller="Position" class="dropdown-item">Position</a>
-                                <a asp-action="Index" asp-controller="Schedule" class="dropdown-item">Schedule</a>
-                            </div>
-                        </li>
+                        <a asp-action="ListUsers" asp-controller="Administration" class="nav-link">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="ListRoles" asp-controller="Administration" class="nav-link">Roles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Home" class="nav-link">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Department" class="nav-link">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Position" class="nav-link">Designations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Schedule" class="nav-link">Hours</a>
+                    </li> 
                     }
-                    else {
-                        <li>
-                            <h3 class="text-white">Employee Management System</h3>
-                        </li>
+                    else
+                    {
+                    <li>
+                        <h3 class="text-white">Employee Management System</h3>
+                    </li>
                     }
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     @if (signInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item">
-                            <form method="post" asp-action="Logout" asp-controller="Account">
-                                <button type="submit" class="nav-link btn btn-link py-0" style="width:auto">
-                                    Logout @User.Identity.Name
-                                </button>
-                            </form>
-                        </li>
-                    }
+        <li class="nav-item">
+            <form method="post" asp-action="Logout" asp-controller="Account">
+                <button type="submit" class="nav-link btn btn-link py-0" style="width:auto">
+                    Logout @User.Identity.Name
+                </button>
+            </form>
+        </li> }
                     else
                     {
-                        @*<li class="nav-item">
-                            <a asp-action="Register" asp-controller="Account" class="nav-link">Register</a>
-                        </li>*@
-                        @*<li class="nav-item">
+        <li class="nav-item">
+            <a asp-action="Register" asp-controller="Account" class="nav-link">Register</a>
+        </li>
+                        <li class="nav-item">
                             <a asp-action="Login" asp-controller="Account" class="nav-link">Login</a>
-                        </li>*@
-                    }
+                        </li>}
 
-                    
+
                 </ul>
             </div>
         </nav>
@@ -109,6 +108,6 @@
         @RenderSection("Scripts", required: false)
     </div>
 
-    
+
 </body>
 </html>

@@ -347,8 +347,8 @@ namespace Employee_Management.Controllers
             for(int i = 0; i < model.Count; i++)
             {
                 var user = await userManager.FindByIdAsync(model[i].UserId);
-                IdentityResult result = null;
-                if(model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
+                IdentityResult result;
+                if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await userManager.AddToRoleAsync(user, role.Name);
                 }

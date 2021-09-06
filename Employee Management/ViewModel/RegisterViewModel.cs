@@ -15,7 +15,7 @@ namespace Employee_Management.ViewModel
         [Required]
         [EmailAddress]
         [Remote(action: "isEmailInUse", controller: "Account")]
-        [ValidEmailDomainAttribute(allowedDomain: "gmail.com", ErrorMessage = "Email Domain must be gmail.com.")]
+        //[ValidEmailDomainAttribute(allowedDomain: "gmail.com", ErrorMessage = "Email Domain must be gmail.com.")]
         public string Email { get; set; }
         [Required]
         public string City { get; set; }

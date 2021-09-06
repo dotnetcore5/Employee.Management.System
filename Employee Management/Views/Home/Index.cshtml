@@ -14,26 +14,31 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            @*<th>Department</th>*@
+            <th>Position</th>
+            <th>Department</th>
+            <th>Working Hours</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach(var employee in Model)
         {
-            <tr>
-                <td>@employee.ID</td>
-                <td>@employee.Name</td>
-                <td>@employee.Email</td>
-                @*<td>@employee.Department</td>*@
-                <td>
-                    <div>
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@employee.ID" class="btn btn-primary m-1">View</a>
-                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.ID" class="btn btn-primary m-1">Edit</a>
-                    </div>
-                    
-                </td>
-            </tr>
+        <tr>
+            <td>@employee.ID</td>
+            <td>@employee.Name</td>
+            <td>@employee.Email</td>
+            <td>@employee.Position.PositionName</td>
+            <td>@employee.Department.DepartmentName</td>
+            <td>@employee.Schedule.TimeIn-@employee.Schedule.TimeOut</td>
+            <td>
+                <div>
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@employee.ID" class="btn btn-primary m-1">View</a>
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.ID" class="btn btn-primary m-1">Edit</a>
+                    <a asp-controller="Home" asp-action="Delete" asp-route-id="@employee.ID" class="btn btn-danger m-1" onclick="return confirm('Are you sure you want to delete user : @employee.Name')">Delete</a>
+                </div>
+
+            </td>
+        </tr>
         }
     </tbody>
 </table>
