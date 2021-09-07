@@ -86,7 +86,7 @@ namespace Employee_Management
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Home}/{id?}");
             });
         }
     }

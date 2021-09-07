@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Employee_Management.Models;
 using Employee_Management.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,7 +29,21 @@ namespace Employee_Management.Controllers
             this.departmentRepository = departmentRepository;
         }
 
-
+        [AllowAnonymous]
+        public IActionResult Home()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public IActionResult Contact()
+        {
+            return View();
+        }
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployee();
